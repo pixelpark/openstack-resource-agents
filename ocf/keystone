@@ -133,7 +133,7 @@ The tenant to use when logging into Keystone for monitoring purposes
 The URL pointing to this Keystone instance to use when logging in for monitoring purposes
 </longdesc>
 <shortdesc lang="en">Keystone URL for monitoring login</shortdesc>
-<content type="string" />
+<content type="string" default="${OCF_RESKEY_os_auth_url_default}" />
 </parameter>
 
 <parameter name="user" unique="0" required="0">
@@ -226,6 +226,8 @@ keystone_status() {
 
 keystone_monitor() {
     local rc
+    OCF_RESKEY_os_auth_url_default="http://`grep -e "^public_bind_host" ${OCF_RESKEY_config} | cut -d= -f 2-`:5000/v2.0"
+    : ${OCF_RESKEY_os_auth_url=${OCF_RESKEY_os_auth_url_default}}
 
     keystone_status
     rc=$?
