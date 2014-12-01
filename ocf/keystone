@@ -247,7 +247,7 @@ keystone_monitor() {
         --os-password "$OCF_RESKEY_os_password" \
         --os-tenant-name "$OCF_RESKEY_os_tenant_name" \
         --os-auth-url "$OCF_RESKEY_os_auth_url" \
-        user-list > /dev/null 2>&1
+        token-get > /dev/null 2>&1
         rc=$?
         if [ $rc -ne 0 ]; then
             ocf_log err "Failed to connect to the OpenStack Identity (Keystone): $rc"
